@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void update(User user, Set<Role> role) {
+    public User update(User user, Set<Role> role) {
         String password = getById(user.getId()).getPassword();
         if (user.getPassword().isEmpty()){
             user.setPassword(password);
@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(role);
         userDAO.update(user);
+        return user;
     }
 
     @Override

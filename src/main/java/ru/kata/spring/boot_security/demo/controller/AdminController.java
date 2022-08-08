@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,12 @@ public class AdminController {
     @GetMapping()
     public String showAllUsers(Model model,
                                Principal principal,
-                               @ModelAttribute("user") User user) {
+                               @AuthenticationPrincipal User user) {
 
         model.addAttribute("roleList", roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("userByEmail", userService.showByEmail(principal.getName()));
-        return "admin";
+        return "index";
     }
 
     @PostMapping
